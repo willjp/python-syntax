@@ -1,6 +1,7 @@
 # Python syntax highlighting script for Vim
 
 Enhanced version of the original Python syntax highlighting script.
+Based on `python-syntax` by Remi C. [github](https://github.com/kh3phr3n)
 Based on `python.vim` from Vim 7.4 distribution by [Zvezdan Petkovic](https://github.com/zvezdan).
 
 ![python-syntax](https://static.tuxico.com/python-syntax/preview.png)
@@ -13,11 +14,12 @@ Changes from the original `python.vim` are:
 * [ON]  Highlight class, function parameters
 * [ON]  Highlight standard operators: `~,!,^,&,|,*,/,%,+,-`
 * [ON]  Highlight pseudo operators: `-=,//=,*=,&=,%=,+=,!=`
-* 3 extras options:
+* 4 extras options:
 
     * `let python_self_cls_highlight = 1`
     * `let python_no_operator_highlight = 1`
     * `let python_no_parameter_highlight = 1`
+    * `let python_call_kwargs_highlight = 1`
 
 * All the options can be switched on together (recommended).
 

@@ -35,6 +35,7 @@
 "   let python_no_parameter_highlight = 1
 "   let python_no_operator_highlight = 1
 "   let python_self_cls_highlight = 1
+"   let python_call_kwargs_highlight = 1
 "
 " All the options above can be switched on together.
 "
@@ -118,7 +119,12 @@ syn match  pythonClassParameters "[^,]*" contained contains=pythonExtraOperator,
 " Function parameters
 syn match  pythonFunction "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained nextgroup=pythonFunctionVars
 syn region pythonFunctionVars start="(" end=")" contained contains=pythonFunctionParameters transparent keepend
-syn match  pythonFunctionParameters "[^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
+syn match  pythonFunctionParameters "[^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets,pythonKwarg skipwhite
+
+" Call parameters
+syn match  pythonCall "\w([^)]\+)" contained nextgroup=pythonCallVars
+syn region pythonCallVars start="(" end=")" contained contains=pythonCallKwargs transparent keepend
+syn match  pythonCallKwargs "\w\+\([\s]*=\)\@=" 
 
 syn match   pythonComment	"#.*$" contains=pythonTodo,@Spell
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
@@ -169,6 +175,7 @@ if exists("python_highlight_all")
   endif
   let python_self_cls_highlight = 1
   let python_space_error_highlight = 1
+  let python_call_kwargs_highlight = 1
 endif
 
 " It is very important to understand all details before changing the
@@ -368,6 +375,10 @@ if version >= 508 || !exists("did_python_syn_inits")
     HiLink pythonBrackets           Normal
     HiLink pythonClassParameters    Constant
     HiLink pythonFunctionParameters Constant
+  endif
+
+  if exists("python_call_kwargs_highlight")
+      HiLink pythonCallKwargs Constant
   endif
 
   delcommand HiLink
